@@ -582,6 +582,7 @@ int ParallelScanIterator::pq_error_code() {
 
 bool ParallelScanIterator::Init() {
   assert(current_thd == m_join->thd);
+  m_gather->waitReadEnd();
   if (m_gather->init() ||        /** cur innodb data,
                                      should be called first(will change dop based on
                                     split count) */
@@ -606,6 +607,7 @@ int ParallelScanIterator::Read() {
 }
 
 int ParallelScanIterator::End() {
+  m_gather->signalReadEnd();
   /** wait all workers to finish their execution */
   pq_wait_workers_finished();
   /** output error code */

@@ -467,6 +467,14 @@ bool Gather_operator::init() {
  */
 void Gather_operator::signalAll() { m_table->file->ha_pq_signal_all(); }
 
+void Gather_operator::signalReadEnd() {
+  m_read_end_mutex.unlock();
+}
+
+void Gather_operator::waitReadEnd() {
+  m_read_end_mutex.lock();
+}
+
 void pq_free_gather(Gather_operator *gather) {
   THD *thd_temp = gather->m_template_join->thd;
   if (thd_temp == nullptr) return;
@@ -787,6 +795,8 @@ void *pq_worker_exec(void *arg) {
   join->query_expression()->ExecuteIteratorQuery(thd);
 
   if (thd->lex->is_explain_analyze && mngr->m_id == 0) {
+    msg_handler->set_datched_status(MQ_HAVE_DETACHED);
+    mngr->m_gather->waitReadEnd();
     Query_expression *unit = leader_thd->lex->unit;
     leader_thd->pq_explain += PrintQueryPlan(
         0, unit->root_access_path(),
