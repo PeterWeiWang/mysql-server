@@ -146,6 +146,9 @@ class Gather_operator {
   CODE_STATE **m_code_state;
   bool table_scan;
 
+ private:
+  std::mutex m_read_end_mutex;
+
  public:
   Gather_operator() = delete;
 
@@ -158,6 +161,10 @@ class Gather_operator {
   void end();
 
   void signalAll();
+
+  void signalReadEnd();
+
+  void waitReadEnd();
 };
 
 Gather_operator *make_pq_gather_operator(JOIN *join, QEP_TAB *tab, uint dop);

@@ -8,4 +8,5 @@ main.file_contents                                      : BUG#000 origin code fa
 main.read_only_ddl                                      : BUG#000 origin code failed
 secondary_engine.cost_threshold                         : BUG#000 origin code failed
 sys_vars.innodb_buffer_pool_size_basic                  : BUG#000 origin code failed
+main.log_buffered-big                                   : BUG#000 origin code failed
 

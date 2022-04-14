@@ -723,9 +723,9 @@ Table	Op	Msg_type	Msg_text
 test.t1	analyze	status	OK
 EXPLAIN ANALYZE SELECT * FROM t1 AS a JOIN t1 AS b ON a.a=b.b ORDER BY a.b+b.a LIMIT 3;
 EXPLAIN
--> Limit: 3 row(s)  (cost=0.00..0.00 rows=0) (actual time=N.NNN..N.NNN rows=0 loops=1)
-    -> Table scan on <temporary>  (cost=2.50..2.50 rows=0) (never executed)
-        -> Temporary table  (cost=2.50..2.50 rows=0) (actual time=N.NNN..N.NNN rows=0 loops=1)
+-> Limit: 3 row(s)  (cost=0.00..0.00 rows=0) (actual time=N.NNN..N.NNN rows=1 loops=1)
+    -> Table scan on <temporary>  (cost=2.50..2.50 rows=0) (actual time=N.NNN..N.NNN rows=1 loops=1)
+        -> Temporary table  (cost=2.50..2.50 rows=0) (actual time=N.NNN..N.NNN rows=1 loops=1)
             -> Parallel scan on <temporary>  (actual time=N.NNN..N.NNN rows=1 loops=1)
                 -> Limit: 3 row(s)  (actual time=N.NNN..N.NNN rows=1 loops=1)
                     -> Sort: `(a.b + b.a)`, limit input to 3 row(s) per chunk  (actual time=N.NNN..N.NNN rows=1 loops=1)

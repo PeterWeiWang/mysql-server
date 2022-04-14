@@ -491,10 +491,6 @@ COUNT_STAR > 0
 SELECT COUNT(*) FROM t2 WHERE (t2.i) IN (SELECT t1.i FROM t1);
 COUNT(*)
 1024
-SELECT COUNT_STAR > 0 FROM performance_schema.file_summary_by_event_name
-WHERE event_name LIKE '%hash_join%';
-COUNT_STAR > 0
-0
 DROP TABLE t1, t2;
 SET join_buffer_size = DEFAULT;
 SET optimizer_switch = DEFAULT;
