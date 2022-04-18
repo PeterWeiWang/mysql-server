@@ -1036,7 +1036,7 @@ ORDER *restore_optimized_group_order(SQL_I_List<ORDER> &orig_list,
     }
     idx++;
   }
-  *prev_ptr = 0;
+  *prev_ptr = nullptr;
 
   return header;
 }
